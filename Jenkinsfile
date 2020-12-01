@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        registry = "owner/demo2"
+        image = ''
+    }
+    
     stages {
         stage('Build') {
             steps {
@@ -20,29 +25,30 @@ pipeline {
             }
         }
 
-        environment {
-            registry = "owner/demo2"
-            image = ''
-        }
-    
         stage('Build Image') {
-            script {
-                image = docker.build registry + ":${env.BUILD_NUMBER}"
+            steps {
+                script {
+                    image = docker.build registry + ":${env.BUILD_NUMBER}"
+                }
             }
         }
     
         /*
         stage('Push Image') {
-            script {
-                docker.withRegistry('', '')
-                    image.push(registry + ":${env.BUILD_NUMBER}")
+            steps {
+                script {
+                    docker.withRegistry('', '')
+                        image.push(registry + ":${env.BUILD_NUMBER}")
+                    }
                 }
             }
         }
 
         stage('Remove Image') {
-            script {
-                image = docker.build registry + ":${env.BUILD_NUMBER}"
+            steps {
+                script {
+                    image = docker.build registry + ":${env.BUILD_NUMBER}"
+                }
             }
         }
         */
