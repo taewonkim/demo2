@@ -7,7 +7,7 @@ pipeline {
                 sh './gradlew clean build'
             }
         }
-
+    
         stage('Test') {
             steps {
                 sh './gradlew check'
@@ -20,15 +20,29 @@ pipeline {
             }
         }
 
-        stage('Build Image') {
-            docker.build("teichae/jenkins")
+        environment {
+            registry = "owner/demo2"
+            image = ''
         }
-
+    
+        stage('Build Image') {
+            script {
+                image = docker.build registry + ":${env.BUILD_NUMBER}"
+            }
+        }
+    
         /*
         stage('Push Image') {
-            docker.withRegistry('', '')
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
+            script {
+                docker.withRegistry('', '')
+                    image.push(registry + ":${env.BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage('Remove Image') {
+            script {
+                image = docker.build registry + ":${env.BUILD_NUMBER}"
             }
         }
         */
