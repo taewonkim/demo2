@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', '') {
-                        image.push(registry + ":${env.BUILD_NUMBER}")
+                        image.push(${env.BUILD_NUMBER})
                     }
                 }
             }
