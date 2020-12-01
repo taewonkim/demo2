@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "owner/demo2"
+        registry = "registry.local/demo2"
         image = ''
     }
     
@@ -33,7 +33,6 @@ pipeline {
             }
         }
     
-        /*
         stage('Push Image') {
             steps {
                 script {
@@ -51,6 +50,5 @@ pipeline {
                 }
             }
         }
-        */
     }
 }
