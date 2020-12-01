@@ -1,4 +1,4 @@
-FROM openjdk:14
+FROM openjdk:8
 
 ADD ./build/libs/demo1-0.0.1-SNAPSHOT.jar /
 
